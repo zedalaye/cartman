@@ -1,5 +1,5 @@
 # Cartman
-[![Build Status](https://travis-ci.org/zedalaye/cartman.svg?branch=extra_keys)](https://travis-ci.org/zedalaye/cartman)
+![Build](https://github.com/zedalaye/cartman/workflows/CI/badge.svg)
 
 ![](http://blog.brightcove.com/sites/all/uploads/eric_theodore_cartman_southpark.jpg)
 
