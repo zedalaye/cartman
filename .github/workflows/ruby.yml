@@ -34,9 +34,9 @@ jobs:
       run: bundle install
 
     - name: Start Redis
-        uses: supercharge/redis-github-action@1.1.0
-        with:
-          redis-version: ${{ matrix.redis }}
+      uses: supercharge/redis-github-action@1.1.0
+      with:
+        redis-version: ${{ matrix.redis }}
 
     - name: Run tests
       run: bundle exec rspec spec/
