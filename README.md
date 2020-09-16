@@ -1,5 +1,6 @@
 # Cartman
-![Build](https://github.com/zedalaye/cartman/workflows/CI/badge.svg)
+
+To see build/CI status go to the [Actions Tab](https://github.com/zedalaye/cartman/actions)
 
 ![](http://blog.brightcove.com/sites/all/uploads/eric_theodore_cartman_southpark.jpg)
 
