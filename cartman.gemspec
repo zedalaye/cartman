@@ -10,14 +10,15 @@ Gem::Specification.new do |gem|
   gem.email         = ["will@willcosgrove.com"]
   gem.description   = %q{Cartman is a framework agnostic, redis-backed, shopping cart system}
   gem.summary       = %q{Doing shopping carts like a boss since 2012}
-  gem.homepage      = "http://github.com/willcosgrove/cartman"
+  gem.homepage      = "https://github.com/willcosgrove/cartman"
+
+  gem.required_ruby_version = ">= 2.7"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency("redis", "~> 4.2.0")
+  gem.add_dependency("redis", "~> 5.0")
 
-  gem.add_development_dependency("rspec", "~> 3.0.0")
+  gem.add_development_dependency("rspec", "~> 3.0")
 end

@@ -10,12 +10,12 @@ module Cartman
     def add_item(options)
       raise "Must specify both :id and :type" unless options.has_key?(:id) && options.has_key?(:type)
       line_item_id = redis.incr(CART_LINE_ITEM_ID_KEY)
-      redis.pipelined do
-        redis.mapped_hmset("cartman:line_item:#{line_item_id}", options)
-        redis.hincrby("cartman:line_item:#{line_item_id}", :_version, 1)
-        redis.sadd(key, line_item_id)
-        redis.sadd(index_key, "#{options[:type]}:#{options[:id]}")
-        redis.set(index_key_for(options), line_item_id)
+      redis.pipelined do |pipeline|
+        pipeline.hset("cartman:line_item:#{line_item_id}", options)
+        pipeline.hincrby("cartman:line_item:#{line_item_id}", :_version, 1)
+        pipeline.sadd(key, line_item_id)
+        pipeline.sadd(index_key, "#{options[:type]}:#{options[:id]}")
+        pipeline.set(index_key_for(options), line_item_id)
       end
       touch
       get_item(line_item_id)
@@ -75,9 +75,9 @@ module Cartman
       keys << index_keys
       keys << extra_keys
       keys.flatten!
-      redis.pipelined do
+      redis.pipelined do |pipeline|
         keys.each do |key|
-          redis.del(key)
+          pipeline.del(key)
         end
       end
     end
@@ -91,9 +91,9 @@ module Cartman
         keys_to_expire.flatten!
       end
       keys_to_expire += extra_keys
-      redis.pipelined do
+      redis.pipelined do |pipeline|
         keys_to_expire.each do |item|
-          redis.expire(item, Cartman.config.cart_expires_in)
+          pipeline.expire(item, Cartman.config.cart_expires_in)
         end
       end
       redis.hincrby(self.class.versions_key, version_key, 1)

@@ -38,7 +38,7 @@ module Cartman
       redis.del(key) if redis.exists?(key)
       case value
       when Hash then
-        redis.mapped_hmset(key, value)
+        redis.hset(key, value.transform_values(&:to_s))
       when Array then
         redis.sadd(key, value)
       else
